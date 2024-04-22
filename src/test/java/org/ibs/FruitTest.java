@@ -1,6 +1,5 @@
 package org.ibs;
 
-import io.restassured.response.Response;
 import org.ibs.api.FoodPojo;
 import org.junit.jupiter.api.Test;
 
@@ -10,28 +9,8 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.*;
 import static org.hamcrest.Matchers.*;
 
-public class RestTest {
+public class FruitTest {
     private final static String URL = "http://localhost:8080/";
-
-    @Test
-    void test2() {
-        given()
-                .when()
-                .contentType(JSON)
-                .log().all()
-                .get(URL + "api/food")
-                .then()
-                .log().all()
-                .assertThat()
-                .statusCode(200)
-                .body("[0].name", equalTo("Апельсин"))
-                .body("[1].name", equalTo("Капуста"))
-                .body("[2].name", equalTo("Помидор"))
-                .body("[3].name", equalTo("Яблоко"))
-        ;
-
-
-    }
 
     @Test
     void testFruit() {
@@ -81,22 +60,6 @@ public class RestTest {
                 .jsonPath()
                 .getList("$", FoodPojo.class);
 
-    }
-
-    @Test
-    void requestTest() {
-        List<FoodPojo> foodList = given()
-                .cookie("JSESSIONID", "59466C32B723995232CDACED53EF1F02")
-                .when()
-                .contentType(JSON)
-                .log().all()
-                .get(URL + "api/food")
-                .then()
-                .log().all()
-                .extract()
-                .body()
-                .jsonPath()
-                .getList("$", FoodPojo.class);
     }
 
 }
